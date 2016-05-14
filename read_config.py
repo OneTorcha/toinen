@@ -20,17 +20,19 @@ def do_the_trick():
                 diff = end - start
                 diff_in_ms = int(round(diff.microseconds / 1000))
                 matches = re.findall(String, page);
-                
+                htmlGen.index_fill(String)
             except IOError, e:
                 logging.warning('Can\'t read %s', TheUrl)
-                htmlGen.html_fill("No Conn")
+                state = 0
+                htmlGen.html_fill(state,String,TheUrl,diff_in_ms)
             else:
                 matches = re.findall(String, page);
                 if len(matches) == 0: 
-                    logging.info('Can\'t find %s from %s', String, TheUrl)
-                    htmlGen.html_fill("No KeyWord")
+                    logging.warning('Can\'t find %s from %s', String, TheUrl)
+                    state = 1
+                    htmlGen.html_fill(state,String,TheUrl,diff_in_ms)
                 else:
                     logging.info('Content Found: %s is in the %s, it took %s ms to fetch.', String, TheUrl, diff_in_ms)
-                    #print(index,TheUrl)
-                    htmlGen.html_fill(diff_in_ms)
+                    state = 2 
+                    htmlGen.html_fill(state,String,TheUrl,diff_in_ms)
                     

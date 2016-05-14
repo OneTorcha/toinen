@@ -16,7 +16,7 @@ def main():
     logging.info('Starting the monitoring rounds.')  
      
     subprocess.Popen("./http_servu.py", shell=True)
-    htmlGen.html_skel()
+    #htmlGen.html_skel()
        
     while True:
         read_config.do_the_trick()
