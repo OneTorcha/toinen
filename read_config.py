@@ -6,9 +6,9 @@ import datetime
 import logging
 import htmlGen
 
-def do_the_trick():
+def do_the_trick(csv_file):
         
-    with open(sys.argv[1]) as f:
+    with open(csv_file) as f:
         d = dict(filter(None, csv.reader(f)))
         for key in d:
             try:

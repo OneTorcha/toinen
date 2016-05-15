@@ -9,7 +9,7 @@ from webbrowser import open_new_tab
 # for future use
 def html_skel(): 
      
-    h_reader = csv.reader(open(sys.argv[1]))
+    h_reader = csv.reader(open(sys.argv[2]))
     html_file = open("index.html","w")
     rownum = 0
     html_file.write('<table>' + '\n')

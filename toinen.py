@@ -17,15 +17,14 @@ def main():
                       format='%(asctime)s %(levelname)s %(message)s',
                       filename='toinen.log',
                       filemode='w')
-
+      
     logging.info('Starting the monitoring rounds.')  
      
     subprocess.Popen("./http_servu.py", shell=True)
-    #htmlGen.html_skel()
-       
+           
     while True:
-        read_config.do_the_trick()
-        time.sleep(int(sys.argv[2]))
+        read_config.do_the_trick(sys.argv[2])
+        time.sleep(int(sys.argv[4]))
 
 if __name__ == '__main__':
     main()
