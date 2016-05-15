@@ -6,14 +6,15 @@ import datetime
 from webbrowser import open_new_tab
 
 
-
-def html_skel():
+# for future use
+def html_skel(): 
      
     h_reader = csv.reader(open(sys.argv[1]))
     html_file = open("index.html","w")
     rownum = 0
     html_file.write('<table>' + '\n')
-    for row in h_reader: # Read a single row from the CSV file
+    # Read a single row from the CSV file
+    for row in h_reader: 
         html_file.write('<tr>' + '\n')	
         for column in row:
             html_file.write('<td>' + column + '</td>' )
@@ -23,7 +24,8 @@ def html_skel():
     html_file.write('</table>' + '\n')
     html_file.close
 
-def html_fill(state,string,url,msec):
+# To Creata separate monitoing window fro each site.
+def html_fill(state,string,url,msec,refresh_time): 
       
     now = datetime.datetime.today().strftime("%Y%m%d-%H%M%S")
 
@@ -33,68 +35,70 @@ def html_fill(state,string,url,msec):
         wrapper = """<html>
               <head>
                 <title>Monitoring page for %s</title>
-                <meta http-equiv="refresh" content="5">
+                <meta http-equiv="refresh" content="%s">
               </head>
               <body>
                 <p>Monitored HTML page: %s is Down!</p>
                 <p>It took %s ms to check.</p>
                 <p>The keyword %s was not there.</p>
-                <p><font size="2">The page refeshes automatically every 5 seconds.</font></p>
+                <p><font size="2">The page refeshes automatically.</font></p>
               </body>
               </html>"""
-        whole = wrapper % (url, url, msec, string)
+        whole = wrapper % (url, refresh_time, url, msec, string)
         f.write(whole)
         f.close()
     elif state == 1 :
         wrapper = """<html>
               <head>
                 <title>Monitoring page for %s</title>
-                <meta http-equiv="refresh" content="5">
+                <meta http-equiv="refresh" content="%s">
               </head>
               <body>
                 <p>Monitored HTML page: %s is UP!</p>
                 <p>It took %s ms to check.</p>
                 <p>The keyword %s was not there.</p>
-                <p><font size="2">The page refeshes automatically every 5 seconds.</font></p>
+                <p><font size="2">The page refeshes automatically.</font></p>
               </body>
               </html>"""
-        whole = wrapper % (url, url, msec, string)
+        whole = wrapper % (url, refresh_time, url, msec, string)
         f.write(whole)
         f.close()
     elif state == 2 :
         wrapper = """<html>
               <head>
                 <title>Monitoring page for %s</title>
-                <meta http-equiv="refresh" content="5">
+                <meta http-equiv="refresh" content="%s">
               </head>
               <body>
                 <p>Monitored HTML page: %s is UP!</p>
                 <p>It took %s ms to check.</p>
                 <p>The keyword %s was there.</p>
-                <p><font size="2">The page refeshes automatically every 5 seconds.</font></p>
+                <p><font size="2">The page refeshes automatically.</font></p>
               </body>
               </html>"""
-        whole = wrapper % (url, url, msec, string)
+        whole = wrapper % (url, refresh_time, url, msec, string)
         f.write(whole)
         f.close()
     
-    
-def index_fill(string):
-    
-
-    filename = 'index.html'    
-    f1 = open(filename,'rw')
-    for line in f1:
-        print(line)
-        print(string)
+# hack to make index.html work at least some way.
+def index_fill(ind,string):
         
-##        if line.contains(string):
-##            print("on jo %s") %string
-##        else:
-##            f = open(filename,'a')
-##            wrapper = """ <p><iframe src="%s.html" seamless></iframe></p>"""
-##                    
-##            whole = wrapper % (string)
-##            f.write(whole+ '\n')
-##            f.close()
-##    
+    target_file = 'index.html'
+    
+    if os.path.isfile(target_file) :
+        template_file = 'index.html'
+    else:
+        template_file = 'findex.html'
+    
+    indeksi = str(ind)
+    filedata = None
+    with open(template_file, 'r') as tfile :
+        filedata = tfile.read()
+        found = False
+        for line in tfile:
+            if string in line: 
+                found = True
+        if not found:
+            filedata = filedata.replace(indeksi, string+'.html')
+            with open(target_file, 'w') as file:
+                file.write(filedata)

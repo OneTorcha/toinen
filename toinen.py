@@ -5,9 +5,14 @@ import read_config,http_servu,htmlGen
 import datetime, threading
 from optparse import OptionParser
 import time, subprocess
+import argparse
 
 def main():
-
+    parser = argparse.ArgumentParser(description='toinen - simple http monitoring tool.')
+    parser.add_argument('-i','--input', help='Input CSV file name',required=True)
+    parser.add_argument('-p','--polltime',help='Polling time', required=True)
+    args = parser.parse_args()    
+    
     logging.basicConfig(level=logging.DEBUG,
                       format='%(asctime)s %(levelname)s %(message)s',
                       filename='toinen.log',
