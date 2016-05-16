@@ -7,3 +7,12 @@ page, http-request time and has the page wanted keyword.
 
 ./toinen.py -i example_input.csv -p 60
 
+Ugly hack: You can monitor 6 http addresses with basic setup. If you want more, edit findex.html and add more entries
+
+<p><iframe src="6" seamless></iframe>
+<iframe src="7" seamless></iframe></p>
+
+etc.
+
+
+
