@@ -34,6 +34,6 @@ def do_the_trick(csv_file):
                     logging.info('Content Found: %s is in the %s, it took %s ms to fetch.', String, TheUrl, diff_in_ms)
                     state = 2 
                     htmlGen.html_fill(state,String,TheUrl,diff_in_ms,sys.argv[2])
-            # Lets make the index.html            
+            # Lets make the index.html and change        
             htmlGen.index_fill(index,String) 
                
