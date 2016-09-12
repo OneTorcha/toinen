@@ -14,5 +14,7 @@ Ugly hack: You can monitor 6 http addresses with basic setup. If you want more, 
 
 etc.
 
+jenkins test
+
 
 
